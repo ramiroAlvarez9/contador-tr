@@ -5,7 +5,7 @@ import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRou
 import { useGlobalState, setGlobalState } from "../globalState";
 
 
-function Contador({ titulo, nombreConteoDeTramitePagos, nombreConteoDeTramiteImpagos }) {
+function Contador({ bgcolor, titulo, nombreConteoDeTramitePagos, nombreConteoDeTramiteImpagos }) {
 
     const [contadorPagas, setContadorPagas] = useState(0);
     const [contadorImpagas, setContadorImpagas] = useState(0);
@@ -24,48 +24,51 @@ function Contador({ titulo, nombreConteoDeTramitePagos, nombreConteoDeTramiteImp
 
 
     return (
+
+        //contenedor general
         <Paper
             sx={{
-                width: '90%',
-                height: '50%',
-                backgroundColor: '#1976d2',
+                width: '70vw',
+                height: '15vh',
+                backgroundColor: bgcolor,
                 color: '#FFFFFF',
-                marginBottom: '3%'
+                marginBottom: '3%',
+                borderRadius: '15px',
             }}
 
-            elevation={4}
+            elevation={10}
         >
+            {/*-------------------------------------*/}
 
+            {/*Contenedor Card */}
             <Box sx={{
                 width: '100%',
-                fontSize: '80%'
+                fontSize: '50%'
             }}>
+                {/*------------------------------- */}
 
-                <Box
-                    sx={{
-                        marginBottom: '3%',
-                        marginLeft: '1%',
-                        paddingTop: '2%'
+                {/*Contenedor titulo */}
+                <Box sx=
+                    {{
+                        height: '2.5vh',
+                        display: 'flex', justifyContent: 'left',
+                        alignItems: 'end',
                     }}
-
                 >
-                    <h1>
 
-                        {titulo}
+                    <h1>{titulo}</h1>
 
-                    </h1>
                 </Box>
+                {/*---------------------------- */}
 
                 <Stack
                     sx={{
-                        marginTop: '5%',
-                        marginLeft: '3%',
-                        borderTop: 'solid 1px white'
+
                     }}
 
                 >
-                    <Box sx={{ marginTop: '3%' }}>
-                        <div>PAGAS: </div>
+                    <Box sx={{}}>
+
                         <IconButton
                             onClick={decrementarPagas}
                             color='warning'
@@ -75,19 +78,32 @@ function Contador({ titulo, nombreConteoDeTramitePagos, nombreConteoDeTramiteImp
 
                         </IconButton>
 
-                        <input type="text" value={contadorPagas} readOnly style={{ width: '20%', outline: 'none' }} />
+                        <input
+                            type="text"
+                            value={contadorPagas+ "           pagas"}
+                            readOnly
+                            placeholder="Pagas"
+                            style={{
+                                width: '30%',
+                                outline: 'none',
+                                borderRadius: '10px',
+                                borderStyle: 'none'
+                            }}
+                        />
+
 
                         <IconButton
                             onClick={incrementarPagas}
                             color='warning'
                             variant='outlined'
-                            size='small'>
+                            size='small'
+                        >
                             <AddCircleOutlineRoundedIcon />
                         </IconButton>
                     </Box>
 
                     <Box >
-                        <div>IMPAGAS: </div>
+
                         <IconButton
                             onClick={decrementarImpagas}
                             color='warning'
@@ -96,8 +112,15 @@ function Contador({ titulo, nombreConteoDeTramitePagos, nombreConteoDeTramiteImp
                             <RemoveCircleOutlineRoundedIcon />
                         </IconButton>
 
-                        <input type="text" value={contadorImpagas} readOnly style={{ width: '20%', outline: 'none' }} />
+                        <input type="text" value={contadorImpagas} readOnly style={{
 
+                            width: '10%',
+                            borderRadius: '50%',
+                            outline: 'none',
+                            borderRadius: '10px',
+                            borderStyle: 'none'
+                        }}
+                        />
                         <IconButton
                             onClick={incrementarImpagas}
                             color='warning'

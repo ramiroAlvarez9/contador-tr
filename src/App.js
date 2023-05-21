@@ -15,18 +15,41 @@ function App() {
       < Stack direction= 'column' >
         {/* Domicilios */}
         <Contador
-          titulo ='DECLARACIONES JURADAS DE DOMICILIO '
+          titulo ='Declaraciones juradas de domicilio'
           nombreConteoDeTramitePagos   = "domiciliosPagos"
           nombreConteoDeTramiteImpagos = "domiciliosImpagos" 
+          bgcolor  = "#0e79c9"
         />
 
-        {/* Extravios */}
-         <Contador
-          titulo='NOTICIAS DE EXTRAVIO PUBLICO'
-          
-        
+        {/* Extravios Publicos */}
+       <Contador
+            titulo='Noticias de extravio publico'
+            nombreConteoDeTramitePagos   = "extraviosPagosPublicos"
+            nombreConteoDeTramiteImpagos = "extraviosImpagosPublicos"
+            bgcolor = "#254493" 
         />
 
+        {/* Extravios Privados */}
+        <Contador
+            titulo='Noticias de extravio privado'
+            nombreConteoDeTramitePagos   = "extraviosPagosPrivados"
+            nombreConteoDeTramiteImpagos = "extraviosImpagosPrivados"
+            bgcolor = "#254493" 
+        />
+        <Contador
+            titulo='Supervivencia con medico'
+            nombreConteoDeTramitePagos   = "supConMedicoPago"
+            nombreConteoDeTramiteImpagos = "supConMedicoPago" 
+            bgcolor = "#2b2a38"
+
+            
+        />
+        <Contador
+            titulo='Supervivencia sin medico'
+            nombreConteoDeTramitePagos   = "supSinMedicoPago"
+            nombreConteoDeTramiteImpagos = "supSinMedicoImpago" 
+            bgcolor = "#2b2a38"
+        />
 
 
       </Stack>
