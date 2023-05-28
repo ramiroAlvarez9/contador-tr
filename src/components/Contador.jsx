@@ -1,25 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import { Paper, Box, IconButton, Stack } from '@mui/material';
-import RemoveCircleOutlineRoundedIcon from '@mui/icons-material/RemoveCircleOutlineRounded';
-import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
 import { useGlobalState, setGlobalState } from "../globalState";
-
+import './contador.css';
 
 function Contador({ bgcolor, titulo, nombreConteoDeTramitePagos, nombreConteoDeTramiteImpagos }) {
+    const [cantPagas, setCantPagas] = useState('0');
+    const [cantImpagas, setCantImpagas] = useState('0');
 
-    const [contadorPagas, setContadorPagas] = useState(0);
-    const [contadorImpagas, setContadorImpagas] = useState(0);
+    const cantTramitesPagas = e => localStorage.setItem(`${nombreConteoDeTramitePagos}`, e.target.value);
+    const cantTramitesImpagas = e => localStorage.setItem(`${nombreConteoDeTramiteImpagos}`, e.target.value);
 
-    const decrementarPagas = () => contadorPagas > 0 ? setContadorPagas(contadorPagas - 1) : null;
-    const incrementarPagas = () => setContadorPagas(contadorPagas + 1);
+    const guardarCantidadDePagas = () => {
 
-    const decrementarImpagas = () => contadorImpagas > 0 ? setContadorImpagas(contadorImpagas - 1) : null;
-    const incrementarImpagas = () => setContadorImpagas(contadorImpagas + 1);
+        localStorage.getItem(`${nombreConteoDeTramitePagos}`) != null ?
 
-    if (nombreConteoDeTramitePagos !== undefined && nombreConteoDeTramiteImpagos !== undefined) {
-        setGlobalState(`${nombreConteoDeTramitePagos}`, contadorPagas);
-        setGlobalState(`${nombreConteoDeTramiteImpagos}`, contadorImpagas);
+            setCantPagas(localStorage.getItem(`${nombreConteoDeTramitePagos}`))
+            :
+            setCantPagas('0');
+
     }
+
+    const guardarCantidadDeImpagas = () => { 
+        
+        localStorage.getItem(`${nombreConteoDeTramiteImpagos}`) != null ?
+        
+        setCantImpagas(localStorage.getItem(`${nombreConteoDeTramiteImpagos}`) )  
+            :
+        setCantImpagas('0'); 
+    
+
+
+    };
+
+    useEffect(() => {
+        guardarCantidadDePagas();
+        guardarCantidadDeImpagas();
+
+    }, []);
+
 
 
 
@@ -28,22 +46,27 @@ function Contador({ bgcolor, titulo, nombreConteoDeTramitePagos, nombreConteoDeT
         //contenedor general
         <Paper
             sx={{
-                width: '70vw',
-                height: '15vh',
+                width: '50vw',
+                height: '6vh',
                 backgroundColor: bgcolor,
                 color: '#FFFFFF',
-                marginBottom: '3%',
-                borderRadius: '15px',
+                marginBottom: '2%',
+                minHeight: '40px',
+
             }}
 
-            elevation={10}
+            elevation={5}
         >
             {/*-------------------------------------*/}
 
             {/*Contenedor Card */}
             <Box sx={{
+
                 width: '100%',
-                fontSize: '50%'
+                fontSize: '50%',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center'
             }}>
                 {/*------------------------------- */}
 
@@ -51,85 +74,82 @@ function Contador({ bgcolor, titulo, nombreConteoDeTramitePagos, nombreConteoDeT
                 <Box sx=
                     {{
                         height: '2.5vh',
-                        display: 'flex', justifyContent: 'left',
-                        alignItems: 'end',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
                     }}
                 >
-
                     <h1>{titulo}</h1>
-
                 </Box>
+
                 {/*---------------------------- */}
 
                 <Stack
                     sx={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        width: '80%',
+
 
                     }}
 
                 >
-                    <Box sx={{}}>
-
-                        <IconButton
-                            onClick={decrementarPagas}
-                            color='warning'
-                            variant='outlined'
-                            size='small'>
-                            <RemoveCircleOutlineRoundedIcon />
-
-                        </IconButton>
-
-                        <input
-                            type="text"
-                            value={contadorPagas+ "           pagas"}
-                            readOnly
-                            placeholder="Pagas"
-                            style={{
-                                width: '30%',
+                    {/*Contador con boton incrementar y decrementar PAGAS */}
+                    <Box  >
+                        <input type="number"
+                            min={JSON.stringify(parseInt(cantPagas) + 1)}
+                            step="1"
+                            placeholder={cantPagas}
+                            style=
+                            {{
+                                display: 'inherit',
+                                textAlign: 'center',
+                                width: '50%',
+                                height: '75%',
                                 outline: 'none',
-                                borderRadius: '10px',
-                                borderStyle: 'none'
+                                borderRadius: '2px',
+                                borderStyle: 'none',
+
                             }}
+                            onChange={cantTramitesPagas}
                         />
 
 
-                        <IconButton
-                            onClick={incrementarPagas}
-                            color='warning'
-                            variant='outlined'
-                            size='small'
-                        >
-                            <AddCircleOutlineRoundedIcon />
-                        </IconButton>
                     </Box>
+                    {/*---------------------------- */}
 
-                    <Box >
-
-                        <IconButton
-                            onClick={decrementarImpagas}
-                            color='warning'
-                            variant='contained'
-                            size='small'>
-                            <RemoveCircleOutlineRoundedIcon />
-                        </IconButton>
-
-                        <input type="text" value={contadorImpagas} readOnly style={{
-
-                            width: '10%',
-                            borderRadius: '50%',
-                            outline: 'none',
-                            borderRadius: '10px',
-                            borderStyle: 'none'
+                    {/*Contador con boton incrementar y decrementar IMPAGAS */}
+                    <div
+                        style={{
+                            display: 'inherit',
+                            justifyContent: 'flex-end',
+                            alignItems: 'flex-end',
                         }}
-                        />
-                        <IconButton
-                            onClick={incrementarImpagas}
-                            color='warning'
-                            variant='contained'
-                            size='small'>
-                            <AddCircleOutlineRoundedIcon />
+                    >
+                        <input type="number"
+                            className='inputDecrementIncrement'
+                            min={JSON.stringify(parseInt(cantImpagas) + 1)}
+                            step="1"
+                            placeholder={cantImpagas}
+                            style=
+                            {{
+                                display: 'inherit',
+                                textAlign: 'center',
+                                width: '50%',
+                                height: '75%',
+                                outline: 'none',
+                                borderStyle: 'none',
+                                borderRadius: '2px',
 
-                        </IconButton>
-                    </Box>
+                            }}
+                            onChange={cantTramitesImpagas}
+                        />
+
+                    </div>
+                    {/*---------------------------- */}
+
                 </Stack>
 
             </Box>

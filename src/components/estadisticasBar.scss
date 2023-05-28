@@ -1,0 +1,51 @@
+.info__Container--technologies {
+  border: solid 0.5px #2b2a38;
+  margin-top: 3%;
+  background-color: #2b2a38;
+  border-radius: 10px;
+
+  .info__Container--technologies--ContainerIcon {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    height: 70px;
+
+    .titlebarContainer {
+      width: 80%;
+      margin-left: 10px;
+
+      .title__bar {
+        font-family: "Ubuntu", sans-serif;
+        color: white;
+        font-size: 10px;
+        margin-left: 2px;
+      }
+
+      .info__Container--technologies--ContainerIcon--bar {
+        border-radius: 10px;
+      }
+
+      .front-end {
+        border: solid 1px green;
+        width: 80%;
+      }
+
+      .back-end {
+        border: solid 1px green;
+        width: 30%;
+      }
+
+      .react-js {
+        border: solid 1px green;
+        width: 80%;
+      }
+
+      .javascript {
+        border: solid 1px green;
+        width: 80%;
+      }
+    }
+  }
+}
+
+
