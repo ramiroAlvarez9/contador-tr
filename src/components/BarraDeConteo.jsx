@@ -8,14 +8,28 @@ const BarraDeConteo = ({ nombreIcono, elementoAContear, cantidadTramites, tramit
     const [cantTramitesContados, setCantTramitesContados] = useState(0);
 
     const cantidadDeTramites = () => {
-        setCantTramitesContados
-        (
-            
-            parseInt(localStorage.getItem(`${tramitesPagos}`))  
+
+        if (localStorage.getItem(`${tramitesPagos}`) === null && localStorage.getItem(`${tramitesImpagos}`) === null) 
+        {
+            setCantTramitesContados(0);
+        }
+        else if (localStorage.getItem(`${tramitesPagos}`) === null && localStorage.getItem(`${tramitesImpagos}`) !== null) 
+        {
+            setCantTramitesContados(parseInt(localStorage.getItem(`${tramitesImpagos}`)));
+        }
+        else if ((localStorage.getItem(`${tramitesPagos}`) !== null && localStorage.getItem(`${tramitesImpagos}`) === null)) 
+        {
+            setCantTramitesContados(parseInt(localStorage.getItem(`${tramitesImpagos}`)));
+        } 
+        else 
+        {
+            setCantTramitesContados(
+                parseInt(localStorage.getItem(`${tramitesPagos}`))
                 +
-            parseInt(localStorage.getItem(`${tramitesImpagos}`))
-            
-        )};
+                parseInt(localStorage.getItem(`${tramitesImpagos}`))
+            )
+        }
+    };
 
     useEffect(() => cantidadDeTramites(), []);
 
