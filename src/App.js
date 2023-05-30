@@ -10,7 +10,7 @@ import EstadisticasBar from './components/EstadisticasBar';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
-  alert('hola');
+  
   return (
     <div
       role="tabpanel"
