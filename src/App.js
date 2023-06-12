@@ -1,32 +1,14 @@
-
-import './App.css';
-import { useState } from 'react'
+import { useState } from 'react';
+import TabPanel from './components/TabPanel';
 import Contador from './components/Contador';
 import { Stack, Box, Typography, Button } from '@mui/material';
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import EstadisticasBar from './components/EstadisticasBar';
+import { CSVLink } from "react-csv";
 
 
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-  
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
+
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
@@ -34,30 +16,65 @@ function a11yProps(index) {
   };
 }
 
-
 function App() {
 
+  const [data, setData] = useState([[]]);
   const [value, setValue] = useState(0);
 
-  const handleChange = (event, newValue) => {
+  const decretosClavesDeStorage = ['domiciliosPagos', 'domiciliosImpagos', 'extraviosPagosPublicos', 'extraviosImpagosPublicos', 'extraviosPagosPrivados', 'extraviosImpagosPrivados', 'supConMedicoPago', 'supConMedicoImpago', 'supSinMedicoPago', 'supSinMedicoImpago'];
+  const partidasClavesStorage   = ['nacimientosPagos', 'nacimientosImpagos', 'matrimoniosPagos', 'matrimoniosImpagos', 'defuncionesPagos', 'defuncionesImpagos'];
+
+  function generarEstadisticasDiarias(decretosClavesDeStorage, partidasClavesStorage) {
+
+    let decretosDiarios = [];
+    let partidasDiarias = [];
+
+    decretosClavesDeStorage.forEach
+      (
+        element => {
+
+          if (localStorage.getItem(element) === null) {
+            decretosDiarios.push('0')
+          } else {
+            decretosDiarios.push(localStorage.getItem(element));
+          }
+        });
+
+      partidasClavesStorage.forEach
+      (
+        element => {
+
+          if (localStorage.getItem(element) === null) {
+            partidasDiarias.push('0')
+          } else {
+            partidasDiarias.push(localStorage.getItem(element));
+          }
+        });
+
+    setData([decretosClavesDeStorage, decretosDiarios, ['',''],partidasClavesStorage, partidasDiarias])
+  }
+
+  function handleChange (event, newValue) 
+  {
     setValue(newValue);
   };
+
 
   return (
     <>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-      
-      {/* Navegacion */}
-      <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+
+        
+        {/* Navegacion */}
+        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab label="CONTEO" {...a11yProps(0)} />
           <Tab label="VISOR DE ESTADISTICAS" {...a11yProps(1)} />
-      </Tabs>
+        </Tabs>
       </Box>
-
       <TabPanel value={value} index={0} >
 
         <Box sx={{ display: 'flex', justifyContent: 'center', marginBottom: '2%', marginTop: '2%' }} >
-          <Typography variant='h5'>Decretos</Typography>
+          <Typography variant='h2'>Decretos</Typography>
         </Box>
 
         < Stack direction='column' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', }} >
@@ -77,7 +94,6 @@ function App() {
             nombreConteoDeTramiteImpagos="extraviosImpagosPublicos"
             bgcolor="#254493"
           />
-
           {/* Extravios Privados */}
           <Contador
             titulo='Noticias de extravío privado'
@@ -91,8 +107,6 @@ function App() {
             nombreConteoDeTramitePagos="supConMedicoPago"
             nombreConteoDeTramiteImpagos="supConMedicoImpago"
             bgcolor="#2b2a38"
-
-
           />
           {/* Sup sin medico */}
           <Contador
@@ -101,12 +115,10 @@ function App() {
             nombreConteoDeTramiteImpagos="supSinMedicoImpago"
             bgcolor="#2b2a38"
           />
-
           {/* Titulo Expedicion partidas */}
           <Box sx={{ display: 'flex', justifyContent: 'center', marginBottom: '2%', marginTop: '2%' }} >
-            <Typography variant='h5'>Expedición de partidas</Typography>
+            <Typography variant='h3'>Expedición de partidas</Typography>
           </Box>
-
           {/* Nacimientos */}
           <Contador
             titulo='Nacimientos'
@@ -128,19 +140,44 @@ function App() {
             nombreConteoDeTramiteImpagos="defuncionesImpagos"
             bgcolor="#2b2a38"
           />
-          <Button variant='outlined' sx={{ marginTop: '5%' }}> Guardar Estadisticas</Button>
+
+
+
+
+
+          <CSVLink
+            onClick={ () => generarEstadisticasDiarias(decretosClavesDeStorage, partidasClavesStorage)}
+            data={data}
+            filename={"estadisticas-del-dia.csv"}
+            target="_blank"
+            style={{
+              display: 'inline-block',
+              backgroundColor: '#2196f3',
+              color: '#FFF',
+              padding: '12px 24px',
+              borderRadius: '10px',
+              textDecoration: 'none',
+              boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)',
+              transition: 'background-color 0.3s ease',
+              fontFamily: 'Roboto, sans-serif',
+              fontSize: '14px',
+              fontWeight: 'bold',
+              marginTop: '5%',
+            }}
+          >
+            GENERAR ESTADISTICAS DEL DIA
+
+          </CSVLink>
+
 
         </Stack>
 
-      </TabPanel>
 
+      </TabPanel>
 
       <TabPanel value={value} index={1}>
         <EstadisticasBar />
       </TabPanel>
-
-
-
     </>
   );
 }

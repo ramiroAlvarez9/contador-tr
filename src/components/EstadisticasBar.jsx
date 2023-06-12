@@ -1,22 +1,26 @@
 import React from 'react'
-import { Icon } from "@iconify/react";
-import { Box, Stack, Typography } from '@mui/material'
+import { Stack } from '@mui/material'
 import './estadisticasBar.scss';
 import BarraDeConteo from './BarraDeConteo';
 
 const EstadisticasBar = () => {
-
+    
     return (
         <>
-            <Stack direction='column' sx={{ border: 'solid 0.5px #2b2a38', marginTop: '3%', backgroundColor: '#2b2a38', borderRadius: '10px' }} >
-
+            <Stack 
+                direction='column' 
+                sx={{ 
+                      border: 'solid 0.5px #2b2a38', 
+                      marginTop: '3%', 
+                      backgroundColor: '#2b2a38', 
+                      borderRadius: '10px' 
+                    }} 
+                >
                 <BarraDeConteo
                     nombreIcono={"ph:house-thin"}
                     elementoAContear="Domicilios"
-                    cantidadTramites={10}
                     tramitesPagos="domiciliosPagos"
                     tramitesImpagos="domiciliosImpagos"
-
                 />
                 <BarraDeConteo
                     nombreIcono={"raphael:paper"}
@@ -58,9 +62,8 @@ const EstadisticasBar = () => {
                     nombreIcono={"mdi:paper-outline"}
                     elementoAContear="Defunciones"
                     tramitesPagos="defuncionesPagos"
-                    tramitesImpagos="domiciliosImpagos"
+                    tramitesImpagos="defuncionesImpagos"
                 />
-
             </Stack >
         </>
     );

@@ -3,25 +3,17 @@ import { Icon } from "@iconify/react";
 import { Box, Typography } from '@mui/material';
 import { useState } from 'react';
 
-const BarraDeConteo = ({ nombreIcono, elementoAContear, cantidadTramites, tramitesImpagos, tramitesPagos }) => {
+const BarraDeConteo = ({ nombreIcono, elementoAContear, tramitesImpagos, tramitesPagos }) => {
 
     const [cantTramitesContados, setCantTramitesContados] = useState(0);
 
     const cantidadDeTramites = () => {
 
         if (localStorage.getItem(`${tramitesPagos}`) === null && localStorage.getItem(`${tramitesImpagos}`) === null) 
-        {
+        { 
             setCantTramitesContados(0);
         }
-        else if (localStorage.getItem(`${tramitesPagos}`) === null && localStorage.getItem(`${tramitesImpagos}`) !== null) 
-        {
-            setCantTramitesContados(parseInt(localStorage.getItem(`${tramitesImpagos}`)));
-        }
-        else if ((localStorage.getItem(`${tramitesPagos}`) !== null && localStorage.getItem(`${tramitesImpagos}`) === null)) 
-        {
-            setCantTramitesContados(parseInt(localStorage.getItem(`${tramitesImpagos}`)));
-        } 
-        else 
+        else if (localStorage.getItem(`${tramitesPagos}`) !== null && localStorage.getItem(`${tramitesImpagos}`) !== null) 
         {
             setCantTramitesContados(
                 parseInt(localStorage.getItem(`${tramitesPagos}`))
@@ -29,14 +21,32 @@ const BarraDeConteo = ({ nombreIcono, elementoAContear, cantidadTramites, tramit
                 parseInt(localStorage.getItem(`${tramitesImpagos}`))
             )
         }
+        else if (localStorage.getItem(`${tramitesPagos}`) !== null) 
+        { 
+            setCantTramitesContados( parseInt(localStorage.getItem(`${tramitesPagos}`)));
+        }
+        else if (localStorage.getItem(`${tramitesImpagos}`) !== null)
+        {
+            setCantTramitesContados( parseInt(localStorage.getItem(`${tramitesImpagos}`)));
+        }
+        else
+        {
+            setCantTramitesContados(0);
+        }
     };
 
-    useEffect(() => cantidadDeTramites(), []);
+    useEffect(() => cantidadDeTramites() );
 
     return (
         <>
-
-            <Box sx={{ display: 'flex', justifyContent: 'left', alignItems: 'center', height: '70px', }} >
+            <Box
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'left',
+                    alignItems: 'center',
+                    height: '15vh',
+                }}
+            >
                 <Icon
                     icon={nombreIcono}
                     color="#fafafa"
@@ -46,10 +56,9 @@ const BarraDeConteo = ({ nombreIcono, elementoAContear, cantidadTramites, tramit
                 <Box sx={{ width: '80 %', marginLeft: '10px' }} >
                     <Typography sx={{
                         color: '#FFFFFF',
-                        fontSize: '10px',
                         marginLeft: '2px',
                     }}
-                        variant="span"
+                        variant="h8"
                     >
                         {elementoAContear}: {cantTramitesContados}
 
