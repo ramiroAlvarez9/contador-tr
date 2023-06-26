@@ -21,7 +21,7 @@ function App() {
   const [data, setData] = useState([[]]);
   const [value, setValue] = useState(0);
 
-  const decretosClavesDeStorage = ['domiciliosPagos', 'domiciliosImpagos', 'extraviosPagosPublicos', 'extraviosImpagosPublicos', 'extraviosPagosPrivados', 'extraviosImpagosPrivados', 'supConMedicoPago', 'supConMedicoImpago', 'supSinMedicoPago', 'supSinMedicoImpago'];
+  const decretosClavesDeStorage = ['domiciliosPagos', 'domiciliosImpagos','supSinMedicoPago', 'supSinMedicoImpago', 'supConMedicoPago', 'supConMedicoImpago','extraviosPagosPrivados', 'extraviosImpagosPrivados','extraviosPagosPublicos', 'extraviosImpagosPublicos'];
   const partidasClavesStorage   = ['nacimientosPagos', 'nacimientosImpagos', 'matrimoniosPagos', 'matrimoniosImpagos', 'defuncionesPagos', 'defuncionesImpagos'];
 
   function generarEstadisticasDiarias(decretosClavesDeStorage, partidasClavesStorage) {
@@ -66,12 +66,17 @@ function App() {
 
         
         {/* Navegacion */}
+
+
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab label="CONTEO" {...a11yProps(0)} />
           <Tab label="VISOR DE ESTADISTICAS" {...a11yProps(1)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0} >
+
+
+
 
         <Box sx={{ display: 'flex', justifyContent: 'center', marginBottom: '2%', marginTop: '2%' }} >
           <Typography variant='h2'>Decretos</Typography>
@@ -168,6 +173,7 @@ function App() {
             GENERAR ESTADISTICAS DEL DIA
 
           </CSVLink>
+        
 
 
         </Stack>

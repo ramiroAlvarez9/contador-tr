@@ -9,33 +9,28 @@ const BarraDeConteo = ({ nombreIcono, elementoAContear, tramitesImpagos, tramite
 
     const cantidadDeTramites = () => {
 
-        if (localStorage.getItem(`${tramitesPagos}`) === null && localStorage.getItem(`${tramitesImpagos}`) === null) 
-        { 
+        if (localStorage.getItem(`${tramitesPagos}`) === null && localStorage.getItem(`${tramitesImpagos}`) === null) {
             setCantTramitesContados(0);
         }
-        else if (localStorage.getItem(`${tramitesPagos}`) !== null && localStorage.getItem(`${tramitesImpagos}`) !== null) 
-        {
+        else if (localStorage.getItem(`${tramitesPagos}`) !== null && localStorage.getItem(`${tramitesImpagos}`) !== null) {
             setCantTramitesContados(
                 parseInt(localStorage.getItem(`${tramitesPagos}`))
                 +
                 parseInt(localStorage.getItem(`${tramitesImpagos}`))
             )
         }
-        else if (localStorage.getItem(`${tramitesPagos}`) !== null) 
-        { 
-            setCantTramitesContados( parseInt(localStorage.getItem(`${tramitesPagos}`)));
+        else if (localStorage.getItem(`${tramitesPagos}`) !== null) {
+            setCantTramitesContados(parseInt(localStorage.getItem(`${tramitesPagos}`)));
         }
-        else if (localStorage.getItem(`${tramitesImpagos}`) !== null)
-        {
-            setCantTramitesContados( parseInt(localStorage.getItem(`${tramitesImpagos}`)));
+        else if (localStorage.getItem(`${tramitesImpagos}`) !== null) {
+            setCantTramitesContados(parseInt(localStorage.getItem(`${tramitesImpagos}`)));
         }
-        else
-        {
+        else {
             setCantTramitesContados(0);
         }
     };
 
-    useEffect(() => cantidadDeTramites() );
+    useEffect(() => cantidadDeTramites());
 
     return (
         <>

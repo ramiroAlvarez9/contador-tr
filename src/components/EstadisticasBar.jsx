@@ -1,6 +1,5 @@
 import React from 'react'
 import { Stack } from '@mui/material'
-import './estadisticasBar.scss';
 import BarraDeConteo from './BarraDeConteo';
 
 const EstadisticasBar = () => {
